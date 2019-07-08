@@ -48,4 +48,11 @@
   lineinfile:
     path: "{{ caldera_rootdir }}/conf/local.yml"
     regexp: '^host:'
-    line: "host: {{ ansible_default_ipv4.address }}"
+    line: "host: 0.0.0.0"
+
+- name: add plugin to conf
+  lineinfile:
+    path: "{{ caldera_rootdir }}/conf/local.yml"
+    insertafter: 'plugins:'
+    line: "  - {{ item }}"
+  with_items: "{{ plugins }}"

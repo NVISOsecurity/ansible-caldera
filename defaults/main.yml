@@ -5,3 +5,7 @@ caldera_version: f4a19f1d9271bba38a48be3160e836f2637286f7
 caldera_user: _caldera
 caldera_home: /var/_caldera
 caldera_rootdir: /var/_caldera/caldera
+
+plugins:
+  - ssl
+  - caltack

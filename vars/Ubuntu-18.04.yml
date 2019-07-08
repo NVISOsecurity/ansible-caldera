@@ -10,5 +10,6 @@ caldera_pkg:
   - libffi-dev
   - libssl-dev
   - acl
+  - haproxy
 
 python: python3
