@@ -1,0 +1,51 @@
+---
+
+- name: Ensure caldera dependencies are present
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items: "{{ caldera_pkg }}"
+  register: pkg_result
+  until: pkg_result is success
+
+- name: ensure caldera user exists
+  user:
+    name: "{{ caldera_user }}"
+    home: "{{ caldera_home }}"
+
+- name: Ensure recent pip & setuptools in virtualenv
+  pip:
+    name: "{{ item }}"
+    state: present
+    virtualenv: "{{ caldera_home }}/env-caldera"
+    virtualenv_python: "{{ python }}"
+  with_items:
+    - pip
+    - setuptools
+  register: pkg_result
+  until: pkg_result is success
+
+- name: git clone caldera
+  git:
+    repo: https://github.com/mitre/caldera.git
+    dest: "{{ caldera_rootdir }}"
+    version: "{{ caldera_version }}"
+    update: false
+    recursive: true
+  become: yes
+  become_user: "{{ caldera_user }}"
+
+- name: Install caldera pip requirements
+  pip:
+    requirements: "{{ caldera_rootdir }}/requirements.txt"
+    virtualenv: "{{ caldera_home }}/env-caldera"
+    virtualenv_python: "{{ python }}"
+  register: pkg_result
+  until: pkg_result is success
+
+- name: set http listener binding
+  lineinfile:
+    path: "{{ caldera_rootdir }}/conf/local.yml"
+    regexp: '^host:'
+    line: "host: {{ ansible_default_ipv4.address }}"
