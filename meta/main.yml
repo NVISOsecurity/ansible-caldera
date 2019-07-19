@@ -1,0 +1,9 @@
+---
+allow_duplicates: true
+dependencies: []
+
+galaxy_info:
+  author: wstinkens
+  description: Mitre Caldera install
+  company: "NVISO"
+  license: "license (BSD, MIT)"
