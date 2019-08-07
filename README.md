@@ -20,7 +20,7 @@ To use this role in your playbook, add the code below:
 
 ## Disclaimer
 
-This role is for use in the SANS 699 course and is provided as is.
+This role is meant for use in the SANS 699 course and is provided as is.
 
 ## License
 
