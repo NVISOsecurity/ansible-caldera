@@ -24,4 +24,4 @@ This role is for use in the SANS 699 course and is provided as is.
 
 ## License
 
-MIT / BSD
+[MIT](LICENSE)
