@@ -26,6 +26,11 @@
   register: pkg_result
   until: pkg_result is success
 
+- name: remove stockpile plugin folder
+  file:
+    state: absent
+    path: "{{ caldera_rootdir }}/plugins/stockpile"
+
 - name: git clone caldera
   git:
     repo: https://github.com/mitre/caldera.git
@@ -41,13 +46,13 @@
   file:
     state: absent
     path: "{{ caldera_rootdir }}/plugins/stockpile"
-  when: result.changed
+#  when: result.changed
 
 - name: git clone stockpile
   git:
-    repo: https://github.com/0xThiebaut/stockpile.git
+    repo: https://github.com/NVISO-BE/stockpile.git
     dest: "{{ caldera_rootdir }}/plugins/stockpile"
-    version: 1c721de17cc03d579a3aaac7a0195f9903801487
+    version: 245e41fc3e1e1467be540ec10f31d23b84682eae
     update: false
     recursive: true
   become: yes
