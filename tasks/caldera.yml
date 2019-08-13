@@ -13,6 +13,7 @@
   user:
     name: "{{ caldera_user }}"
     home: "{{ caldera_home }}"
+    shell: /bin/bash
 
 - name: Ensure recent pip & setuptools in virtualenv
   pip:
@@ -46,7 +47,7 @@
   file:
     state: absent
     path: "{{ caldera_rootdir }}/plugins/stockpile"
-#  when: result.changed
+  when: result.changed
 
 - name: git clone stockpile
   git:
