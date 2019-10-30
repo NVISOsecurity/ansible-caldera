@@ -38,22 +38,6 @@
   become_user: "{{ caldera_user }}"
   register: result
 
-- name: remove stockpile plugin folder
-  file:
-    state: absent
-    path: "{{ caldera_rootdir }}/plugins/stockpile"
-  when: result.changed
-
-- name: git clone stockpile
-  git:
-    repo: https://github.com/NVISO-BE/stockpile.git
-    dest: "{{ caldera_rootdir }}/plugins/stockpile"
-    version: 5250ac145ba835390dd1853ea06f43c1b8a123ad
-    update: false
-    recursive: true
-  become: yes
-  become_user: "{{ caldera_user }}"
-
 - name: Install caldera pip requirements
   pip:
     requirements: "{{ caldera_rootdir }}/requirements.txt"
