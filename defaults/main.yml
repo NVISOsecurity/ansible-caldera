@@ -9,3 +9,4 @@ caldera_rootdir: /var/_caldera/caldera
 plugins:
   - ssl
   - caltack
+  - terminal
