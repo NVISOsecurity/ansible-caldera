@@ -46,6 +46,22 @@
   register: pkg_result
   until: pkg_result is success
 
+- name: Identify other pip requirements
+  find:
+    paths: "{{ caldera_rootdir }}/plugins"
+    patterns: 'requirements.txt'
+    recurse: yes
+  register: requirements
+
+- name: Install other pip requirements
+  pip:
+    requirements: "{{ item.path }}"
+    virtualenv: "{{ caldera_home }}/env-caldera"
+    virtualenv_python: "{{ python }}"
+  register: pkg_result
+  until: pkg_result is success
+  loop: "{{ requirements.files }}"
+
 - name: set http listener binding
   lineinfile:
     path: "{{ caldera_rootdir }}/conf/local.yml"
